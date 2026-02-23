@@ -23,14 +23,17 @@ def cnt_words(text):
         else:
             clean_text += " "
     words = clean_text.split()
-
+    
+    stop_words = ["a", "an","the", "is", "am", "are", "was", "were",
+                  "and", "or", "of", "in", "to", "on", "for", "with", "as", "by"]
     dict_freq = {}
 
     for word in words:
-        if word in dict_freq:
-            dict_freq[word] += 1
-        else:
-            dict_freq[word] = 1
+        if word not in stop_words:
+            if word in dict_freq:
+                dict_freq[word] += 1
+            else:
+                dict_freq[word] = 1
     return dict_freq
 
 def calculate_hash(word):
@@ -46,7 +49,7 @@ def calculate_hash(word):
     return hash_value
 
 def create_hash(freq_dict):
-    v = [0] * 64              #v:Vector
+    v = [0] * 64         #v:Vector
 
     for word in freq_dict:
         h = calculate_hash(word)
@@ -109,3 +112,4 @@ same_bits = common_bits(hash1, hash2)
 print("\n")
 print("Hash of D1 and Hash of D2 respectively:", hash1," ", hash2)
 print("Same bits in D1 & D2:", same_bits)
+
